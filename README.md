@@ -1,3 +1,16 @@
+# Sites Monitoring Utility
+
+This utility check status your sites.
+
+Now it contain check below:
+
+- the server response status HTTP 200
+- domain name paid on 1 month
+
+# Requirements
+
+- Python3.6
+- Virtualenv
 
 # How to Install
 
@@ -8,8 +21,31 @@ $ pip install -r requirements.txt # alternatively try pip3
 ```
 Remember, it is recommended to use [virtualenv/venv](https://devman.org/encyclopedia/pip/pip_virtualenv/) for better isolation.
 
-# Sites Monitoring Utility
+In file `sites.txt` or any other file you should add sites which you want to monitor:
+```
+http://site1.xx
+http://site2.xx
+....
+```
 
+# Example launch script
+
+You can run the script like this:
+```bash
+$ python3.6 check_sites_health.py sites.txt 
+```
+Example result:
+```bash
+[{'check_expiration_date': True, 'is_respond_200': True, 'url': 'devman.org'},
+ {'check_expiration_date': True, 'is_respond_200': True, 'url': 'yandex.ru'},
+ {'check_expiration_date': True, 'is_respond_200': True, 'url': 'rosneft.ru'},
+ {'check_expiration_date': True, 'is_respond_200': True, 'url': 'ctc.ru'},
+ {'check_expiration_date': False,
+  'is_respond_200': True,
+  'url': 'asdfj23@ddd.ru'}]
+```
+
+# Sites Monitoring Utility
 
 Данная утилита позволяет автоматически проверять состояние ваших сайтов.
 
@@ -20,7 +56,7 @@ Remember, it is recommended to use [virtualenv/venv](https://devman.org/encyclop
 
 # Требования к окружению
 
-- Python3.6 (на других версиях не проверялась)
+- Python3.6
 - Virtualenv
 
 # Как установить
@@ -37,7 +73,6 @@ http://site1.xx
 http://site2.xx
 ....
 ```
-Вы можете 
 
 # Примеры запуска скриптов
 
@@ -45,7 +80,6 @@ http://site2.xx
 ```bash
 $ python3.6 check_sites_health.py sites.txt 
 ```
-Вместо `sites.txt` вы можете указать путь до файла, в котором перечислен список сайтов.
 
 Результат работы:
 ```bash
