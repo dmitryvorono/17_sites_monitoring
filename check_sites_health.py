@@ -1,11 +1,70 @@
+import requests
+import whois
+import os
+import argparse
+import sys
+import datetime
+import pprint
+
+
 def load_urls4check(path):
-    pass
+    if not os.path.exists(path):
+        return None
+    with open(path, 'r') as file_handler:
+        return file_handler.read()
+
 
 def is_server_respond_with_200(url):
-    pass
+    request = requests.get('http://' + url, timeout=60)
+    return request.status_code == requests.codes.ok
+
 
 def get_domain_expiration_date(domain_name):
-    pass
+    whois_info = whois.whois(domain_name)
+    if type(whois_info.expiration_date) is list:
+        whois_info.expiration_date = whois_info.expiration_date[0]
+    return whois_info.expiration_date
+
+
+def create_parser():
+    parser = argparse.ArgumentParser(description='This script check sites')
+    parser.add_argument('path', type=str, help='Path to file incude urls')
+    return parser
+
+
+def check_urls(urls):
+    return [{'url': url,
+             'is_respond_200': is_server_respond_with_200(url),
+             'check_expiration_date': check_domain_expiration_date(url)}
+            for url in urls]
+
+
+def check_domain_expiration_date(url):
+    expiration_date = get_domain_expiration_date(url)
+    if expiration_date is None:
+        return False
+    return is_good_expiration_date(expiration_date)
+
+
+def is_good_expiration_date(expiration_date, max_day=30):
+    now = datetime.datetime.now()
+    time_delta = expiration_date - now
+    return bool(time_delta.days >= max_day)
+
+
+def print_check_urls(checks):
+    pprint.pprint(checks)
+
+
+def main():
+    parser = create_parser()
+    args = parser.parse_args()
+    urls = load_urls4check(args.path)
+    if urls is None:
+        return 0
+    print_check_urls(check_urls(urls.split()))
+
 
 if __name__ == '__main__':
-    pass
+    status = main()
+    sys.exit(status)
