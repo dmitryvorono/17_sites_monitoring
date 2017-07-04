@@ -21,7 +21,7 @@ $ pip install -r requirements.txt # alternatively try pip3
 ```
 Remember, it is recommended to use [virtualenv/venv](https://devman.org/encyclopedia/pip/pip_virtualenv/) for better isolation.
 
-In file `sites.txt` or any other file you should add sites which you want to monitor:
+Before run script you should add sites which you want to monitor in text file. Format below:
 ```
 http://site1.xx
 http://site2.xx
@@ -32,17 +32,13 @@ http://site2.xx
 
 You can run the script like this:
 ```bash
-$ python3.6 check_sites_health.py sites.txt 
+$ python3.6 check_sites_health.py <path_to_file> 
 ```
 Example result:
 ```bash
-[{'check_expiration_date': True, 'is_respond_200': True, 'url': 'devman.org'},
- {'check_expiration_date': True, 'is_respond_200': True, 'url': 'yandex.ru'},
- {'check_expiration_date': True, 'is_respond_200': True, 'url': 'rosneft.ru'},
- {'check_expiration_date': True, 'is_respond_200': True, 'url': 'ctc.ru'},
- {'check_expiration_date': False,
-  'is_respond_200': True,
-  'url': 'asdfj23@ddd.ru'}]
+https://devman.org: [OK][OK]
+http://yandex.ru: [OK][OK]
+http://111.com: [OK][OK]
 ```
 
 # Sites Monitoring Utility
@@ -67,7 +63,7 @@ $ pip install -r requirements.txt # alternatively try pip3
 ```
 Рекомендуется использовать [virtualenv/venv](https://devman.org/encyclopedia/pip/pip_virtualenv/) для лучшей изоляции.
 
-Далее, в файл `sites.txt` или в любой другой файл необходимо добавить те сайты, которые необходимо мониторить:
+Перед запуском необходимо добавить те сайты, которые необходимо мониторить, в текстовый файл. Формат файла ниже:
 ```
 http://site1.xx
 http://site2.xx
@@ -83,13 +79,9 @@ $ python3.6 check_sites_health.py sites.txt
 
 Результат работы:
 ```bash
-[{'check_expiration_date': True, 'is_respond_200': True, 'url': 'devman.org'},
- {'check_expiration_date': True, 'is_respond_200': True, 'url': 'yandex.ru'},
- {'check_expiration_date': True, 'is_respond_200': True, 'url': 'rosneft.ru'},
- {'check_expiration_date': True, 'is_respond_200': True, 'url': 'ctc.ru'},
- {'check_expiration_date': False,
-  'is_respond_200': True,
-  'url': 'asdfj23@ddd.ru'}]
+https://devman.org: [OK][OK]
+http://yandex.ru: [OK][OK]
+http://111.com: [OK][OK]
 ```
 
 # Project Goals
