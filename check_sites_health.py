@@ -53,7 +53,10 @@ def is_good_expiration_date(expiration_date, max_day=30):
 
 
 def print_check_urls(checks):
-    pprint.pprint(checks)
+    for check_url in checks:
+        print(check_url['url'], end=': ')
+        print('[OK]' if check_url['is_respond_200'] else '[is not respond 200]', end='')
+        print('[OK]' if check_url['check_expiration_date'] else '[Need to extend expiration data]')
 
 
 def main():
