@@ -45,12 +45,12 @@ def check_urls(urls):
 
 def check_domain_expiration_date(url):
     expiration_date = get_domain_expiration_date(url)
-    if expiration_date is None:
-        return False
     return is_good_expiration_date(expiration_date)
 
 
 def is_good_expiration_date(expiration_date, max_day=30):
+    if expiration_date is None:
+        return False
     now = datetime.datetime.now()
     time_delta = expiration_date - now
     return bool(time_delta.days >= max_day)
