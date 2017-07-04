@@ -14,8 +14,8 @@ def load_urls4check(path):
         return file_handler.read()
 
 
-def is_server_respond_with_200(url):
-    request = requests.get('http://' + url, timeout=60)
+def is_server_respond_with_200(url, request_timeout=60):
+    request = requests.get('http://' + url, timeout=request_timeout)
     return request.status_code == requests.codes.ok
 
 
