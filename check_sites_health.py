@@ -15,7 +15,7 @@ def load_urls4check(path):
 
 
 def is_server_respond_with_200(url, request_timeout=60):
-    request = requests.get('http://' + url, timeout=request_timeout)
+    request = requests.get(url, timeout=request_timeout)
     return request.status_code == requests.codes.ok
 
 
@@ -32,10 +32,14 @@ def create_parser():
     return parser
 
 
+def get_domain_name(url):
+    return url.split('://')[1]
+
+
 def check_urls(urls):
     return [{'url': url,
              'is_respond_200': is_server_respond_with_200(url),
-             'check_expiration_date': check_domain_expiration_date(url)}
+             'check_expiration_date': check_domain_expiration_date(get_domain_name(url))}
             for url in urls]
 
 
