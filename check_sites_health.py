@@ -4,7 +4,6 @@ import os
 import argparse
 import sys
 import datetime
-import pprint
 
 
 def load_urls4check(path):
@@ -37,6 +36,8 @@ def get_domain_name(url):
 
 
 def check_urls(urls):
+    if urls is None:
+        return None
     return [{'url': url,
              'is_respond_200': is_server_respond_with_200(url),
              'check_expiration_date': check_domain_expiration_date(get_domain_name(url))}
@@ -57,19 +58,26 @@ def is_good_expiration_date(expiration_date, max_day=30):
 
 
 def print_check_urls(checks):
+    if checks is None:
+        return None
     for check_url in checks:
         print(check_url['url'], end=': ')
         print('[OK]' if check_url['is_respond_200'] else '[is not respond 200]', end='')
         print('[OK]' if check_url['check_expiration_date'] else '[Need to extend expiration data]')
 
 
+def make_list_urls(raw_text):
+    if raw_text is None:
+        return None
+    return raw_text.split()
+
+
 def main():
     parser = create_parser()
     args = parser.parse_args()
-    urls = load_urls4check(args.path)
-    if urls is None:
-        return 0
-    print_check_urls(check_urls(urls.split()))
+    raw_text = load_urls4check(args.path)
+    urls = make_list_urls(raw_text)
+    print_check_urls(check_urls(urls))
 
 
 if __name__ == '__main__':
